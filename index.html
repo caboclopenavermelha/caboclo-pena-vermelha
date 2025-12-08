@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Caboclo Pena Vermelha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-red: #8b0000;
+            --accent-gold: #d4af37;
+            --dark-bg: #0f0f0f;
+            --light-text: #f5f1ed;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.6), inset 0 0 30px rgba(212, 175, 55, 0.2);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        @keyframes pulseGold {
+            0%, 100% { color: var(--accent-gold); }
+            50% { color: #ffed4e; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--light-text);
+            background: var(--dark-bg);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        
+        .background-effects {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+        }
+        
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #8b0000, #ff4444);
+            top: -200px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #d4af37, #ffed4e);
+            bottom: -150px;
+            left: -50px;
+            animation: float 7s ease-in-out infinite;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            text-align: center;
+            animation: fadeInDown 1.2s ease-out;
+            z-index: 10;
+        }
+        
+
+        
+
+        
+        h1 {
+            font-size: 72px;
+            font-weight: 900;
+            margin: 30px 0 10px;
+            background: linear-gradient(135deg, var(--accent-gold), #ffed4e, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 1.3s ease-out;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: rgba(212, 175, 55, 0.8);
+            font-style: italic;
+            margin-bottom: 40px;
+            animation: fadeInUp 1.4s ease-out;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #8b0000, #ff4444);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.4);
+            animation: fadeInUp 1.5s ease-out;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 60px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #ff4444, #8b0000);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+        
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.3s; }
+        
+        h2 {
+            font-size: 48px;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h2::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, var(--accent-gold), #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .principle-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 40px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .principle-card:nth-child(1) { animation-delay: 0.1s; }
+        .principle-card:nth-child(2) { animation-delay: 0.2s; }
+        .principle-card:nth-child(3) { animation-delay: 0.3s; }
+        .principle-card:nth-child(4) { animation-delay: 0.4s; }
+        .principle-card:nth-child(5) { animation-delay: 0.5s; }
+        .principle-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .principle-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .principle-card:hover::before {
+            opacity: 1;
+        }
+        
+        .principle-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .principle-card p {
+            color: rgba(245, 241, 237, 0.85);
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(139, 0, 0, 0.1));
+            border-left: 4px solid var(--accent-gold);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        .info-box strong {
+            color: var(--accent-gold);
+        }
+        
+        .pix-section {
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .pix-card {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(212, 175, 55, 0.05));
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            padding: 60px 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 40px auto;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pix-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .pix-card h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .pix-chave {
+            font-size: 18px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            word-break: break-all;
+            color: var(--accent-gold);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .pix-chave:hover {
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .endereco-card {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(139, 0, 0, 0.1));
+            padding: 50px;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            text-align: center;
+            margin: 40px auto;
+            max-width: 700px;
+            animation: fadeInUp 0.8s ease-out;
+            backdrop-filter: blur(10px);
+        }
+        
+        .endereco-card h3 {
+            color: var(--accent-gold);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .endereco-card p {
+            font-size: 16px;
+            color: rgba(245, 241, 237, 0.9);
+            margin: 10px 0;
+        }
+        
+        .valores-box {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.15), rgba(212, 175, 55, 0.05));
+            padding: 50px;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+            margin: 40px auto;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease-out;
+            backdrop-filter: blur(10px);
+        }
+        
+        .valores-box h3 {
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .valor-item {
+            margin: 20px 0;
+            font-size: 18px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-gold);
+            color: rgba(245, 241, 237, 0.9);
+        }
+        
+        .charity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .charity-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 35px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .charity-card:nth-child(1) { animation-delay: 0.1s; }
+        .charity-card:nth-child(2) { animation-delay: 0.2s; }
+        .charity-card:nth-child(3) { animation-delay: 0.3s; }
+        .charity-card:nth-child(4) { animation-delay: 0.4s; }
+        .charity-card:nth-child(5) { animation-delay: 0.5s; }
+        
+        .charity-card h3 {
+            color: var(--accent-gold);
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .charity-card p {
+            color: rgba(245, 241, 237, 0.85);
+            text-align: justify;
+        }
+        
+        .charity-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: rgba(245, 241, 237, 0.7);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        footer p {
+            margin: 10px 0;
+            transition: color 0.3s ease;
+        }
+        
+        footer p:hover {
+            color: var(--accent-gold);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 48px;
+            }
+            
+            h2 {
+                font-size: 36px;
+            }
+            
+            header {
+                min-height: 80vh;
+            }
+            
+            .principles-grid,
+            .charity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Casa Caboclo Pena Vermelha</h1>
+                <p class="subtitle">✨ Templo de Espiritualidade e Cura Sagrada ✨</p>
+                <p style="color: rgba(212, 175, 55, 0.7); font-size: 16px; margin-bottom: 40px; font-style: italic;">
+                    Casa de Caridade - Trabalho Espiritual Desinteressado
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Sobre Nossa Casa - A Caridade em Ação</h2>
+            
+            <div style="max-width: 900px; margin: 50px auto; text-align: center;">
+                <div class="info-box" style="background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(212, 175, 55, 0.05)); text-align: justify;">
+                    <p style="color: rgba(245, 241, 237, 0.9); margin-bottom: 20px; font-size: 18px;">
+                        A <strong style="color: var(--accent-gold);">Casa Caboclo Pena Vermelha</strong> é um templo fundado sob os princípios sagrados da caridade e do serviço desinteressado. Nossa missão é oferecer um espaço de cura, transformação espiritual e desenvolvimento pessoal para todos, independentemente de sua condição social, religião ou origem.
+                    </p>
+                    <p style="color: rgba(245, 241, 237, 0.9); margin-bottom: 20px; font-size: 18px;">
+                        Como <strong style="color: var(--accent-gold);">Casa de Caridade</strong>, operamos com o princípio de que a espiritualidade verdadeira não é comercializada, mas compartilhada com amor. Nenhum trabalho espiritual realizado aqui busca lucro ou ganho pessoal. Todo valor recebido é reinvestido no templo, na formação de facilitadores e no atendimento àqueles que buscam cura e elevação espiritual.
+                    </p>
+                    <p style="color: rgba(245, 241, 237, 0.9); font-size: 18px;">
+                        Honramos os ensinamentos dos ancestrais, o trabalho do Caboclo Pena Vermelha e de todas as entidades de luz que se dedicam ao bem da humanidade. Nossa casa é um refúgio sagrado onde a caridade, a compaixão e a transformação espiritual caminham juntas, criando um mundo melhor através do trabalho energético e do coração aberto.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Preceitos para Médiuns e Consulentes</h2>
+            
+            <div class="info-box" style="margin-bottom: 50px; border-left-color: var(--accent-gold); text-align: center;">
+                <strong style="font-size: 18px;">⏰ Cronograma de Preceito</strong><br>
+                <p style="color: rgba(245, 241, 237, 0.9); margin-top: 15px; font-size: 16px;">
+                    <strong style="color: #ffed4e;">3 DIAS ANTES:</strong> Iniciar preceito rigoroso • <strong style="color: #ffed4e;">DIA DA SESSÃO:</strong> Jejum e repouso total • <strong style="color: #ffed4e;">APÓS:</strong> Integração espiritual
+                </p>
+            </div>
+            
+            <div class="principles-grid">
+            </div>
+        </div>
+    </section>
+
+    <section id="preceitos">
+        <div class="container">
+            <h2 class="section-title">Preceitos para Médiuns e Consulentes</h2>
+            
+            <div class="info-box" style="margin-bottom: 40px; border-left-color: var(--accent-gold);">
+                <strong>⏰ Cronograma de Preceito:</strong><br>
+                <span style="color: rgba(245, 241, 237, 0.9);">
+                    Preparação prévia • 3 dias de preceito rigoroso antes da sessão • Repouso e integração após a sessão
+                </span>
+            </div>
+            
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <h3>🙏 Respeito e Devoção</h3>
+                    <p>Comparecer ao templo com respeito, reverência e devoção genuína. O espaço é sagrado e merece nossa mais profunda consideração espiritual.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>💭 Intenção Pura</h3>
+                    <p>Aproximar-se do trabalho espiritual com intenções puras e sinceras. Questões materiais, vanidade ou curiosidade devem ser deixadas à porta.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>🔇 Silêncio Absoluto</h3>
+                    <p>Manter silêncio total durante as sessões. Permanecer em repouso e meditação profunda, respeitando o trabalho dos espíritos e dos guias.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>🙌 Humildade Espiritual</h3>
+                    <p>Cultivar a humildade diante do sagrado. Aceitar as mensagens e orientações com coração aberto, sem julgamento ou resistência às revelações.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>📿 Fé Inabalável</h3>
+                    <p>Desenvolver e manter a fé nos processos espirituais. A fé é o alicerce de toda transformação genuína e evolução interior.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>🕯️ Limpeza Energética</h3>
+                    <p>Manter a limpeza pessoal e espiritual. Abstinência sexual por 24h antes das sessões e consumo moderado de alimentos pesados são essenciais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Preceitos para a Ayahuasca</h2>
+            
+            <div class="info-box" style="margin-bottom: 50px; border-left-color: var(--accent-gold);">
+                <strong style="font-size: 18px;">⏰ Cronograma de Preceito</strong><br>
+                <div style="color: rgba(245, 241, 237, 0.9); font-size: 14px; display: block; margin-top: 15px;">
+                    <div style="margin: 12px 0; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid #ffed4e;">
+                        <strong style="color: #ffed4e;">📅 7 DIAS ANTES:</strong> Dieta preparatória - evitar alimentos pesados, gordurosos, álcool e tabaco
+                    </div>
+                    <div style="margin: 12px 0; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid #ffed4e;">
+                        <strong style="color: #ffed4e;">3️⃣ 3 DIAS ANTES:</strong> Dieta restrita, meditação e repouso - prepare corpo e espírito
+                    </div>
+                    <div style="margin: 12px 0; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid #ffed4e;">
+                        <strong style="color: #ffed4e;">🕯️ 24H ANTES:</strong> Evitar alimentos pesados e bebidas alcoólicas
+                    </div>
+                    <div style="margin: 12px 0; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid #ffed4e;">
+                        <strong style="color: #ffed4e;">🌙 APÓS SESSÃO:</strong> 3 dias de repouso, dieta leve e integração espiritual
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-bottom: 50px;">
+                <strong>🍃 Como Funciona a Ayahuasca:</strong>
+                <p style="color: rgba(245, 241, 237, 0.85); margin-top: 12px;">
+                    A ayahuasca é uma medicina sagrada amazônica que atua em múltiplos níveis do ser. Através de sua composição química, ela amplia a percepção sensorial e promove uma conexão profunda com dimensões espirituais. A experiência facilita a limpeza energética do corpo, revelando bloqueios emocionais e padrões limitantes. O trabalho realizado sob a orientação de facilitadores experientes permite a liberação de traumas, o fortalecimento da fé e a reorganização energética completa. Cada sessão é um encontro sagrado entre o participante e as forças divinas, mediado pela inteligência da planta e pelo trabalho dos espíritos guias.
+                </p>
+            </div>
+            
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <h3>💊 Medicamentos</h3>
+                    <p>Informar previamente sobre qualquer medicamento em uso. Anticoncepcional, antidepressivos e anticoagulantes podem ter interações. Consulte nossos facilitadores.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>🧠 Estado Mental</h3>
+                    <p>Pessoas com histórico de esquizofrenia, psicose, transtorno bipolar não controlado ou outras condições psiquiátricas graves não podem participar.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>👥 Atitude de Entrega</h3>
+                    <p>Entregue-se completamente ao processo. A resistência mental pode resultar em experiências difíceis. Confie na medicina e nos guias espirituais.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>🛏️ Repouso Pós-sessão</h3>
+                    <p>Repouse completamente nos 3 dias seguintes. Evite dirigir, tomar decisões importantes ou expor-se a situações estressantes.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>📖 Integração Espiritual</h3>
+                    <p>As visões e aprendizados devem ser integrados lentamente. Medite e reflita sobre as mensagens recebidas durante sete dias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Os Princípios da Caridade</h2>
+            
+            <div class="charity-grid">
+                <div class="charity-card">
+                    <h3>💝 Amor ao Próximo</h3>
+                    <p>A caridade genuína brota do amor incondicional. Servir ao próximo sem esperar retorno é honrar a divindade que habita em cada ser.</p>
+                </div>
+
+                <div class="charity-card">
+                    <h3>🤝 Igualdade e Dignidade</h3>
+                    <p>Reconhecemos a dignidade e valor de cada pessoa. Não há distinção de classe, cor ou crença. Todos são irmãos na jornada espiritual.</p>
+                </div>
+
+                <div class="charity-card">
+                    <h3>🎁 Doação Desinteressada</h3>
+                    <p>A verdadeira caridade é o ato de dar sem esperar reconhecimento. Suas contribuições sustentam o trabalho sagrado realizado aqui.</p>
+                </div>
+
+                <div class="charity-card">
+                    <h3>🌱 Transformação Social</h3>
+                    <p>Acreditamos que a espiritualidade deve transformar não apenas indivíduos, mas comunidades. Juntos, criamos um mundo mais compassivo.</p>
+                </div>
+
+                <div class="charity-card">
+                    <h3>🕯️ Serviço Desinteressado</h3>
+                    <p>Nossa casa existe para servir. Todos aqui doam seu tempo, energia e conhecimento em prol do bem maior.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Valor da Medicina Sagrada</h2>
+            
+            <div class="valores-box">
+                <h3>💰 Investimento Espiritual</h3>
+                <div class="valor-item">
+                    <strong>Ayahuasca (não mensalistas):</strong> R$ 50,00
+                </div>
+                <p style="margin-top: 25px; color: rgba(245, 241, 237, 0.8);">
+                    <em>Mensalistas da casa recebem as sessões como parte de seu compromisso mensal com a comunidade espiritual.</em>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Faça sua Doação</h2>
+            
+            <div class="pix-card">
+                <h3>💳 PIX - Chave</h3>
+                <p style="color: rgba(245, 241, 237, 0.85); margin-bottom: 20px;">Sua contribuição sustenta o trabalho espiritual da casa</p>
+                <div class="pix-chave">wagner-domingues@hotmail.com</div>
+                <p style="margin-top: 20px; font-size: 14px; color: rgba(245, 241, 237, 0.75);">
+                    ✨ Toda doação é realizada com gratidão e gera retorno energético multiplicado ✨
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Localização</h2>
+            
+            <div class="endereco-card">
+                <h3>📍 Casa Caboclo Pena Vermelha</h3>
+                <p style="margin-top: 20px;">
+                    <strong style="color: var(--accent-gold);">Rua Yoshico utaka 32</strong>
+                </p>
+                <p style="margin-top: 20px; font-size: 14px; color: rgba(245, 241, 237, 0.7);">
+                    Entre em contato para confirmar datas de sessões e agendamentos
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Compromisso Espiritual</h2>
+            
+            <div style="text-align: center; max-width: 800px; margin: 50px auto;">
+                <p style="color: rgba(245, 241, 237, 0.9); margin-bottom: 30px; text-align: justify;">
+                    Ao ingressar em nossa casa, você se compromete a respeitar os preceitos aqui expostos, honrar o espaço sagrado e contribuir para a elevação espiritual coletiva. Somos uma comunidade de luz, dedicada ao serviço desinteressado e à transformação através dos ensinamentos ancestrais.
+                </p>
+                <p style="color: rgba(245, 241, 237, 0.85); text-align: justify;">
+                    Que os guias, ancestrais e entidades de luz nos abençoem nessa jornada sagrada em busca da iluminação e do bem comum.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="font-size: 18px; margin-bottom: 20px;">Casa Caboclo Pena Vermelha © 2025</p>
+        <p style="font-size: 16px;">Templo de Espiritualidade, Cura e Transformação</p>
+        <p style="margin-top: 20px; font-size: 14px;">
+            <em>💎 "Na caridade está o caminho para a iluminação" 💎</em>
+        </p>
+    </footer>
+</body>
+</html>
